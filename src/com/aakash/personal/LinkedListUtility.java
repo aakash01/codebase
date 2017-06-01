@@ -1,5 +1,7 @@
 package com.aakash.personal;
 
+import sun.awt.image.ImageWatched;
+
 // 1 --> 2 --> 3 --> 4 --> 5
 public class LinkedListUtility {
 
@@ -153,7 +155,107 @@ public class LinkedListUtility {
       return isPalindrome;
    }
 
+   public static LinkedList.Node sortList(LinkedList.Node a) {
+      if(a == null){
+         return null;
+      }
+      if(a.next == null){
+         return a;
+      }
+
+      LinkedList.Node l1 = a;
+      LinkedList.Node l2 = divideAtMiddle(a);
+
+      l1 = sortList(l1);
+      l2 = sortList(l2);
+      return merge(l1, l2);
+   }
+
+   static LinkedList.Node divideAtMiddle(LinkedList.Node node){
+      if(node == null || node.next == null){
+         return null;
+      }
+      LinkedList.Node slow = node, fast = node, slow_prev = null;
+      while(fast != null){
+         slow_prev = slow;
+         slow = slow.next;
+         fast = fast.next;
+         if(fast != null){
+            fast = fast.next;
+         }
+      }
+      slow_prev.next = null;
+      return slow;
+   }
+
+   static LinkedList.Node merge(LinkedList.Node l1, LinkedList.Node l2){
+      if(l1 == null){
+         return l2;
+      } else if(l2 == null){
+         return l1;
+      }
+      LinkedList.Node head = null, prev = null, curr = null;
+      while(l1 != null && l2 != null){
+         if(l1.data > l2.data){
+            curr = l2;
+            l2 = l2.next;
+         } else {
+            curr = l1;
+            l1 = l1.next;
+         }
+         if(prev != null){
+            prev.next = curr;
+         }
+         if(head == null){
+            head = curr;
+         }
+         prev = curr;
+
+      }
+      if(l1 != null){
+         prev.next = l1;
+      } else if(l2 != null){
+         prev.next = l2;
+      }
+
+      return head;
+
+   }
+
+   static LinkedList.RandomNode cloneList(LinkedList.RandomNode head){
+      LinkedList.RandomNode curr = head;
+      while(curr != null){
+         LinkedList.RandomNode cloneCurr = new LinkedList.RandomNode(curr.data);
+         cloneCurr.next = curr.next;
+         curr.next = cloneCurr;
+         curr = cloneCurr.next;
+      }
+      LinkedList.RandomNode cloneHead = head.next;
+
+      curr = head;
+      while(curr != null){
+         if(curr.random != null){
+            curr.next.random = curr.random.next;
+         }
+         curr = curr.next.next;
+      }
+
+      curr = head;
+      while(curr != null) {
+         LinkedList.RandomNode next = curr.next.next;
+         if(next != null){
+            curr.next.next = next.next;
+         }
+         curr.next = next;
+         curr = next;
+      }
+
+      return cloneHead;
+   }
+
+
    public static void main(String[] args) {
+/*
       LinkedList list = new LinkedList();
       list.head = new LinkedList.Node(1);
       list.head.next = new LinkedList.Node(2);
@@ -264,7 +366,33 @@ public class LinkedListUtility {
       leftPointer.next = list7.head;
 
       System.out.println(isPalindrome(leftPointer, list7.head));
-      
+*/
+
+      LinkedList list8 = new LinkedList();
+      list8.head = new LinkedList.Node(5);
+      /**
+       * 5 -> 66 -> 68 -> 42 -> 73 -> 25 -> 84 -> 63 -> 72 -> 20 -> 77 -> 38 -> 8 -> 99 -> 92 -> 49 -> 74 -> 45 -> 30 -> 51 -> 50 -> 95 -> 56 -> 19 -> 31 -> 26 -> 98 -> 67 -> 100 -> 2 -> 24 -> 6 -> 37 -> 69 -> 11 -> 16 -> 61 -> 23 -> 78 -> 27 -> 64 -> 87 -> 3 -> 85 -> 55 -> 22 -> 33 -> 62
+       */
+      list8.head.next(66).next(42).next(73).next(25).next(84).next(63).next(72).next(20).next(77).next(38).next(8).next(99).next(92).next(49).next(74).next(45).next(30).next(51).next(50).next(95).next(56).next(19).next(31).next(26).next(98).next(67).next(100).next(2).next(24).next(6).next(37).next(69).next(11).next(16).next(61).next(23).next(78).next(27).next(64).next(87).next(3).next(85).next(55).next(22).next(33).next(62);
+
+     list8.print();
+
+      LinkedList.Node head = sortList(list8.head);
+
+      head.print();
+
+      LinkedList.RandomNode rhead = new LinkedList.RandomNode(1);
+      LinkedList.RandomNode node2 = rhead.next(2);
+      LinkedList.RandomNode node3 = node2.next(3);
+      rhead.random = node3;
+      node3.random = node2;
+
+      rhead.print();
+
+      LinkedList.RandomNode cloneHead = cloneList(rhead);
+
+      cloneHead.print();
+
    }
 
 }

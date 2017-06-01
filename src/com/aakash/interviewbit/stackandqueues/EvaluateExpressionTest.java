@@ -1,13 +1,10 @@
 package com.aakash.interviewbit.stackandqueues;
 
+import org.junit.*;
+import org.junit.rules.Timeout;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.Timeout;
 
 /**
  * Created by Aakash on 17-Sep-16.

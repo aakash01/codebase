@@ -1,13 +1,14 @@
 package com.aakash.interviewbit.twopointers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Aakash on 13-Sep-16.
